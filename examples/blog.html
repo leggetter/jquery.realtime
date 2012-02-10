@@ -1,0 +1,251 @@
+<html lang="en">
+<head>
+  <title>jQuery Realtime Markup - write less, do realtime</title>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- Le styles -->
+  <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+  
+  <style type="text/css">
+    body {
+      padding: 10px;
+    }
+  
+    .nba-latest-scores {
+      font-size: 2em;
+      line-height: 2.2em;
+      border: 2px solid white;
+      padding: 10px;
+      margin: 30px;
+      text-align: center;
+      box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+      -moz-box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+      -webkit-box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      
+      width: 400px;
+    }
+    
+    .nba-latest-scores div {
+    }
+    
+    .nba-latest-scores div span:first-child {
+      text-align: right;
+    }
+    
+    .nba-latest-scores div span:last-child {
+      text-align: left;
+    }
+    
+    .nba-latest-scores div span:first-child,
+    .nba-latest-scores div span:last-child {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <header class="jumbotron subhead">  
+      <h1>jQuery Realtime Markup</h1>
+      <p class="lead">write less, do realtime</p>
+    </header>
+
+    <p>
+      I'm attending the jQuery UK conference in Oxford so it got me thinking about how I could use jQuery with Pusher in a fun and interesting way. I also started thinking about why jQuery seems to be <strong>the</strong> JavaScript library (54% of the top 17,000 sites use jQuery) to include whenever a web application is built; what makes it so popular? To me, it seems to be that it's simple yet powerful. It's made common tasks simple to perform for advanced developers and advanced tasks accessible to newer developers and designers. Hence the jQuery tagline, "write less, do more".
+    </p>
+
+    <p>
+    One of our goals is to make Pusher <strong>the</strong> go-to technology whenever you want realtime functionality within your web app. We aim to make our libraries as accessible, yet powerful, as possible. So, I thought I'd try and find a way of combining the Pusher JavaScript library with jQuery, and I came up with jQuery Realtime Markup. Why not "write less, do realtime"!
+    </p>
+
+    <p>
+    The idea is simple: include jQuery and jQuery Realtime libraries, add HTML5 compliant <code>data-</code> attributes to your HTML markup and watch realtime data stream into your page.
+    </p>
+  
+    <pre class="prettyprint linenums">
+&lt;div class=&quot;nba-latest-scores&quot;&gt;
+
+   &lt;div <strong>data-pusher-channel=&quot;warriors-v-nuggets&quot;</strong>&gt;
+     &lt;span&gt;Warriors&lt;/span&gt;
+     &lt;span <strong>data-pusher-event=&quot;home_points_updated&quot;</strong>
+           <strong>data-pusher-value=&quot;points&quot;</strong>&gt;0&lt;/span&gt;
+     &lt;span&gt; - &lt;/span&gt;
+     &lt;span <strong>data-pusher-event=&quot;away_points_updated&quot;</strong>
+           <strong>data-pusher-value=&quot;points&quot;</strong>&gt;0&lt;/span&gt;
+     &lt;span&gt;Nuggets&lt;/span&gt;
+   &lt;/div&gt;
+
+   &lt;div data-pusher-channel=&quot;rockets-v-suns&quot;&gt;
+     &lt;span&gt;Rockets&lt;/span&gt;
+     &lt;span data-pusher-event=&quot;home_points_updated&quot;
+           data-pusher-value=&quot;points&quot;&gt;0&lt;/span&gt;
+     &lt;span&gt; - &lt;/span&gt;
+     &lt;span data-pusher-event=&quot;away_points_updated&quot;
+           data-pusher-value=&quot;points&quot;&gt;0&lt;/span&gt;
+     &lt;span&gt;Suns&lt;/span&gt;
+   &lt;/div&gt;
+
+   &lt;div data-pusher-channel=&quot;thunder-v-kings&quot;&gt;
+     &lt;span&gt;Thunder&lt;/span&gt;
+     &lt;span data-pusher-event=&quot;home_points_updated&quot;
+           data-pusher-value=&quot;points&quot;&gt;0&lt;/span&gt;
+     &lt;span&gt; - &lt;/span&gt;
+     &lt;span data-pusher-event=&quot;away_points_updated&quot;
+           data-pusher-value=&quot;points&quot;&gt;0&lt;/span&gt;
+     &lt;span&gt;Kings&lt;/span&gt;
+   &lt;/div&gt;
+
+ &lt;/div&gt;
+ 
+ &lt;script src=&quot;../src/jquery.realtime.js&quot; <strong>data-pusher-app-key=&quot;d152b997cf7cc629e97c&quot;</strong>&gt;&lt;/script&gt;
+    </pre>
+  
+    <h2>Let's see this in action</h2>
+
+    <div class="nba-latest-scores">
+    
+      <div data-pusher-channel="warriors-v-nuggets">
+        <span>Warriors</span>
+        <span data-pusher-event="home_points_updated"
+              data-pusher-value="points">0</span>
+        <span> - </span>
+        <span data-pusher-event="away_points_updated"
+              data-pusher-value="points">0</span>
+        <span>Nuggets</span>
+      </div>
+    
+      <div data-pusher-channel="rockets-v-suns">
+        <span>Rockets</span>
+        <span data-pusher-event="home_points_updated"
+              data-pusher-value="points">0</span>
+        <span> - </span>
+        <span data-pusher-event="away_points_updated"
+              data-pusher-value="points">0</span>
+        <span>Suns</span>
+      </div>
+    
+      <div data-pusher-channel="thunder-v-kings">
+        <span>Thunder</span>
+        <span data-pusher-event="home_points_updated"
+              data-pusher-value="points">0</span>
+        <span> - </span>
+        <span data-pusher-event="away_points_updated"
+              data-pusher-value="points">0</span>
+        <span>Kings</span>
+      </div>
+    
+    </div>
+  
+    <p><em>Note: I've written the plugin but haven't had time to write the code that sources and pushes the data so the updates are pushed through the Pusher library, but are generated on the client. Sorry!</em></p>
+    
+    <p>
+      The idea is that you specify a channel to subscribe to by placing the <code>data-pusher-channel</code> attribute on an element. Within that element you can identify events to bind to on that channel using the <code>data-pusher-event</code> attribute. Then on, or within, that event you can specify a value to extract from the event data object and inserted into the page using the <code>data-pusher-value</code> attribute. Also, if you add a <code>data-pusher-app-key</code> to the <em>jquery.realtime.js</em> script tag plugin will automatically connect and data will start streaming in.
+    </p>
+    
+    <p>Hopefully this makes it really easy to enhance a page with realtime data.</p>
+    
+    <h2>The markup looks cluttered!</h2>
+    <p>Yes it does! You can change the data attributes that are used. Have a look at the plugin code to see how.</p>
+    <p>It might also make a lot of sense to use this in combination with a JavaScript templating library and the markup could be reduced a lot further and a page made much more dynamic.</p>
+
+    <h2>Code &amp; is this useful?</h2>
+    <p>The code for this idea is <a href="https://github.com/leggetter/jquery.realtime">available in github</a> so feel free have a play and come up with other ideas. I'd also love to hear if you think this sort of markup is useful. Do you agree that it makes realtime data more easily accessible? What features would you like to see added?</p>
+
+    <ul>
+      <li>Flashing updates to make changes more visible</li>
+      <li>The ability to call transform or formatting functions when inserting values into the page</li>
+      <li>Additional callbacks so values can be derived from two or more other values</li>
+    </ul>
+
+    <p>For all those at the jQuery UK conference, I hope you are enjoying yourself and please head over if you see me and say 'hi'.</p>
+  </div>
+    
+  <script src="jquery-1.7.min.js"></script>
+  <script src="../src/jquery.realtime.js" data-pusher-app-key="d152b997cf7cc629e97c"></script>  
+  <script>
+    $(function() {
+    
+      var channelNames = [
+        'warriors-v-nuggets',
+        'rockets-v-suns',
+        'thunder-v-kings'
+      ];
+      var scores = {};
+  
+      setInterval(triggerUpdate, 2000);
+    
+      function triggerUpdate() {
+        if(window['Pusher'] === undefined) return; // wait for Pusher to load
+        
+        var instance = Pusher.instances[0];
+        var channelName = getRandomChannelName();
+        var channel = instance.channel(channelName);
+        var score  = getScore(channelName);
+        var updateResult = updateScore(score);
+
+        switch(updateResult) {
+          case 'home_points_updated':
+            channel.emit(updateResult, {"points": score.home.points});
+            break;
+          case 'away_points_updated':
+            channel.emit(updateResult, {"points": score.away.points});        
+            break;
+          case 'game_stats_updated':
+            throw 'games_stats_updated not implemented';
+            break;
+        }
+      };
+    
+      function getRandomChannelName() {
+        var index = getRandomValueBetween(0, channelNames.length-1);
+        return channelNames[index];
+      };
+    
+      function getScore(channelName) {
+        var score = scores[channelName];
+        if(score === undefined) {
+          score = {
+            "home": {"points": 0},
+            "away": {"points": 0}
+          };
+          scores[channelName] = score;
+        }
+        return score;
+      };
+    
+      function updateScore(score) {
+        var result;
+        var points = getRandomValueBetween(1, 3);
+        switch(getRandomValueBetween(0, 1)) {
+          case 0:
+            score.home.points = (score.home.points + points);
+            result = 'home_points_updated';
+            break;
+          case 1:
+            score.away.points = (score.away.points + points);
+            result = 'away_points_updated';          
+            break;
+        }
+        return result;
+      }
+    
+      function getRandomValueBetween(from, to) {
+        return Math.floor(Math.random() * (to - from + 1) + from);
+      }
+      
+      prettyPrint();
+    });
+  </script>
+  <script src="http://js.pusher.com/1.11/pusher.min.js"></script>
+  <script src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+</body>
+</html>
