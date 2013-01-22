@@ -1,0 +1,35 @@
+{
+    "name": "jquery.realtime",
+    "title": "jQuery Realtime",
+    "description": "jQuery plugin that lets you add realtime content to a web page or app simply by marking up a web page. write less, do realtime.",
+    "keywords": [
+        "realtime",
+        "pusher",
+        "notifications",
+        "websockets"
+    ],
+    "version": "0.0.1",
+    "author": {
+        "name": "Pusher and other contributors",
+        "url": "https://github.com/leggetter/jquery.realtime/blob/0.0.1/AUTHORS.txt"
+    },
+    "maintainers": [
+        {
+            "name": "Phil Leggetter",
+            "email": "phil@leggetter.co.uk",
+            "url": "http://www.leggetter.co.uk"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/leggetter/jquery.realtime/blob/0.0.1/MIT-LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/leggetter/jquery.realtime/issues",
+    "homepage": "https://github.com/leggetter/jquery.realtime",
+    "docs": "https://github.com/leggetter/jquery.realtime",
+    "dependencies": {
+        "jquery": ">=1.5"
+    }
+}
