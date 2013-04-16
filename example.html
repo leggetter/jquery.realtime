@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Creating a realtime jQuery plugin | Webdesigner Depot</title>
+  </head>
+  <body>
+		<h1>Bitcoin Fake Prices</h1>
+    <table id="bitcoin_prices">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Last</th>
+          <th>Low</th>
+          <th>High</th>
+          <th>Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        	<td>BTC/USD</td>
+          <td>61.157 USD</td>
+          <td>51 USD</td>
+          <td>95.713 USD</td>
+          <td>66271 BTC / 4734629 USD</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script src="http://js.pusher.com/2.0/pusher.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+      ( function( $ ) {
+
+      	Pusher.log = function( msg ) {
+      		console.log( msg );
+      	};
+      
+        var pusher = new Pusher( '7b9f9ade2135118a915b' );
+        var channel = pusher.subscribe( 'btc-usd' );
+        channel.bind( 'new-price', handleEvent );
+        
+        function handleEvent( data ) {
+		      var cells = $( '#bitcoin_prices tbody tr td' );
+		      cells.eq( 1 ).text( data.last );
+		      cells.eq( 2 ).text( data.low );
+		      cells.eq( 3 ).text( data.high );
+		      cells.eq( 4 ).text( data.volume );                  
+		    }
+        
+      } )( jQuery );
+    </script>
+  </body>
+</html>
