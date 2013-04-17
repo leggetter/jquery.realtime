@@ -3,6 +3,30 @@
   <head>
     <meta charset="utf-8">
     <title>Creating a realtime jQuery plugin | Webdesigner Depot</title>
+
+    <style>
+      body {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      }
+      #bitcoin_prices {
+        border-spacing: 0;
+      }
+      #bitcoin_prices thead {
+        background-color: gray;
+      }
+      #bitcoin_prices tbody tr:nth-child(odd) {
+        background-color: #fff;
+      }
+      #bitcoin_prices tbody tr:nth-child(even) {
+        background-color: #ccc;
+      }
+      #bitcoin_prices tbody tr td:nth-child(1) {
+        background-color: yellow;
+      }
+      #bitcoin_prices td {
+        padding: 4px 10px;
+      }
+    </style>
   </head>
   <body>
 		<h1>Bitcoin Fake Prices</h1>
@@ -23,32 +47,18 @@
           <td>51 USD</td>
           <td>95.713 USD</td>
           <td>66271 BTC / 4734629 USD</td>
-        </tr>
+        </tr>       
       </tbody>
     </table>
 
     <script src="http://js.pusher.com/2.0/pusher.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../../src/jquery.realtime.js"
+            data-rt-key="7b9f9ade2135118a915b"></script>
     <script>
-      ( function( $ ) {
-
-      	Pusher.log = function( msg ) {
-      		console.log( msg );
-      	};
-      
-        var pusher = new Pusher( '7b9f9ade2135118a915b' );
-        var channel = pusher.subscribe( 'btc-usd' );
-        channel.bind( 'new-price', handleEvent );
-        
-        function handleEvent( data ) {
-		      var cells = $( '#bitcoin_prices tbody tr td' );
-		      cells.eq( 1 ).text( data.last );
-		      cells.eq( 2 ).text( data.low );
-		      cells.eq( 3 ).text( data.high );
-		      cells.eq( 4 ).text( data.volume );                  
-		    }
-        
-      } )( jQuery );
+      $( function() {
+        $( '#bitcoin_prices' ).realtime();
+      } );
     </script>
   </body>
 </html>
