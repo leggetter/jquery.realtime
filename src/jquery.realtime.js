@@ -73,7 +73,21 @@
 			log( 'found ' + updateEls.size() + ' "' + propName + '" elements to update' );
 
 			updateEls.text( value );
+
+			updateEls.each( function( i, el ) {
+				el = $( el );
+				flash.call( el );
+			} );
 		}
+	}
+
+	function flash() {
+		var el = this;
+		var orgBgColor = el.stop().css( 'background-color' );
+		el.css( 'background-color', 'yellow' );
+		setTimeout( function() {
+			el.css( 'background-color', orgBgColor );
+		}, 500 );
 	}
 
 	function find( els, selector ) {
