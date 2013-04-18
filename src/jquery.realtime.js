@@ -91,9 +91,9 @@
 	}
 
 	function find( els, selector ) {
-		var topLevelEls = els.filter(selector);
-  	var childEls = els.find(selector);
-  	return topLevelEls.add(childEls);
+		var topLevelEls = els.filter( selector );
+		var childEls = els.find( selector );
+		return topLevelEls.add( childEls );
 	}
 
 	$.fn.realtime = function() {
