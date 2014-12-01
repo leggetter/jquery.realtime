@@ -8,10 +8,10 @@
         "notifications",
         "websockets"
     ],
-    "version": "0.0.3",
+    "version": "0.0.4",
     "author": {
         "name": "Pusher and other contributors",
-        "url": "https://github.com/leggetter/jquery.realtime/blob/0.0.3/AUTHORS.TXT"
+        "url": "https://github.com/leggetter/jquery.realtime/blob/0.0.4/AUTHORS.TXT"
     },
     "maintainers": [
         {
@@ -23,7 +23,7 @@
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://github.com/leggetter/jquery.realtime/blob/0.0.3/MIT-LICENSE.txt"
+            "url": "https://github.com/leggetter/jquery.realtime/blob/0.0.4/MIT-LICENSE.txt"
         }
     ],
     "bugs": "https://github.com/leggetter/jquery.realtime/issues",
