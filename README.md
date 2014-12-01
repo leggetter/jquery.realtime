@@ -4,4 +4,4 @@ The jQuery realtime library is a first attempt at making it really easy for anyb
 
 The jQuery Realtime library uses [Pusher](http://pusher.com).
 
-You can read more about this plugin, and see an example of it in action in this [jQuery Realtime Markup blog post](http://leggetter.github.com/jquery.realtime/examples/blog.html).
+You can read more about this plugin, and see an example of it in action in this [jQuery Realtime Markup blog post](http://leggetter.github.io/jquery.realtime/examples/blog.html).

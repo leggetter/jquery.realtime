@@ -10,12 +10,12 @@
   <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
   <link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-  
+
   <style type="text/css">
     body {
       padding: 10px;
     }
-  
+
     .nba-latest-scores {
       font-size: 2em;
       line-height: 2.2em;
@@ -30,21 +30,21 @@
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
       border-bottom-left-radius: 10px;
-      
+
       width: 400px;
     }
-    
+
     .nba-latest-scores div {
     }
-    
+
     .nba-latest-scores div span:first-child {
       text-align: right;
     }
-    
+
     .nba-latest-scores div span:last-child {
       text-align: left;
     }
-    
+
     .nba-latest-scores div span:first-child,
     .nba-latest-scores div span:last-child {
       width: 100px;
@@ -53,8 +53,8 @@
 </head>
 <body>
   <div class="container">
-    
-    <header class="jumbotron subhead">  
+
+    <header class="jumbotron subhead">
       <h1>jQuery Realtime Markup</h1>
       <p class="lead">write less, do realtime</p>
     </header>
@@ -70,7 +70,7 @@
     <p>
     The idea is simple: include jQuery and jQuery Realtime libraries, add HTML5 compliant <code>data-</code> attributes to your HTML markup and watch realtime data stream into your page.
     </p>
-  
+
     <pre class="prettyprint linenums">
 &lt;div class=&quot;nba-latest-scores&quot;&gt;
 
@@ -105,14 +105,14 @@
    &lt;/div&gt;
 
  &lt;/div&gt;
- 
+
  &lt;script src=&quot;../src/jquery.realtime.js&quot; <strong>data-pusher-app-key=&quot;d152b997cf7cc629e97c&quot;</strong>&gt;&lt;/script&gt;
     </pre>
-  
+
     <h2>Let's see this in action</h2>
 
     <div class="nba-latest-scores">
-    
+
       <div data-pusher-channel="warriors-v-nuggets">
         <span>Warriors</span>
         <span data-pusher-event="home_points_updated"
@@ -122,7 +122,7 @@
               data-pusher-value="points">0</span>
         <span>Nuggets</span>
       </div>
-    
+
       <div data-pusher-channel="rockets-v-suns">
         <span>Rockets</span>
         <span data-pusher-event="home_points_updated"
@@ -132,7 +132,7 @@
               data-pusher-value="points">0</span>
         <span>Suns</span>
       </div>
-    
+
       <div data-pusher-channel="thunder-v-kings">
         <span>Thunder</span>
         <span data-pusher-event="home_points_updated"
@@ -142,17 +142,17 @@
               data-pusher-value="points">0</span>
         <span>Kings</span>
       </div>
-    
+
     </div>
-  
+
     <p><em>Note: I've written the plugin but haven't had time to write the code that sources and pushes the data so the updates are pushed through the Pusher library, but are generated on the client. Sorry!</em></p>
-    
+
     <p>
       The idea is that you specify a channel to subscribe to by placing the <code>data-pusher-channel</code> attribute on an element. Within that element you can identify events to bind to on that channel using the <code>data-pusher-event</code> attribute. Then on, or within, that event you can specify a value to extract from the event data object and inserted into the page using the <code>data-pusher-value</code> attribute. Also, if you add a <code>data-pusher-app-key</code> to the <em>jquery.realtime.js</em> script tag plugin will automatically connect and data will start streaming in.
     </p>
-    
+
     <p>Hopefully this makes it really easy to enhance a page with realtime data.</p>
-    
+
     <h2>The markup looks cluttered!</h2>
     <p>Yes it does! The attributes are a bit verbose. You can change the data attributes that are used. Have a look at the plugin code to see how.</p>
     <p>It might also make a lot of sense to use this in combination with a JavaScript templating library and the markup could be reduced a lot further and a page made much more dynamic.</p>
@@ -168,41 +168,41 @@
 
     <p>For all those at the jQuery UK conference, I hope you are enjoying yourself and please head over if you see me and say 'hi'.</p>
   </div>
-    
+
   <script src="jquery-1.7.min.js"></script>
-  <script src="../src/jquery.realtime.js" data-pusher-app-key="d152b997cf7cc629e97c"></script>  
+  <script src="../src/jquery.realtime.js" data-pusher-app-key="d152b997cf7cc629e97c"></script>
   <script>
     $(function() {
-    
+
       var channelNames = [
         'warriors-v-nuggets',
         'rockets-v-suns',
         'thunder-v-kings'
       ];
       var scores = {};
-  
+
       setInterval(triggerUpdate, 2000);
-    
+
       function triggerUpdate() {
         if(window['Pusher'] === undefined) {
           return; // wait for Pusher to load
         }
-        
+
         var instance = Pusher.instances[0];
-        
+
         if(!instance) {
           // waiting for the jquery.runtime plugin
           return;
         }
-        
+
         var channelName = getRandomChannelName();
         var channel = instance.channel(channelName);
-        
+
         if(!channel) {
           // not subscribed yet
           return;
         }
-        
+
         var score  = getScore(channelName);
         var updateResult = updateScore(score);
 
@@ -211,19 +211,19 @@
             channel.emit(updateResult, {"points": score.home.points});
             break;
           case 'away_points_updated':
-            channel.emit(updateResult, {"points": score.away.points});        
+            channel.emit(updateResult, {"points": score.away.points});
             break;
           case 'game_stats_updated':
             throw 'games_stats_updated not implemented';
             break;
         }
       };
-    
+
       function getRandomChannelName() {
         var index = getRandomValueBetween(0, channelNames.length-1);
         return channelNames[index];
       };
-    
+
       function getScore(channelName) {
         var score = scores[channelName];
         if(score === undefined) {
@@ -235,7 +235,7 @@
         }
         return score;
       };
-    
+
       function updateScore(score) {
         var result;
         var points = getRandomValueBetween(1, 3);
@@ -246,22 +246,18 @@
             break;
           case 1:
             score.away.points = (score.away.points + points);
-            result = 'away_points_updated';          
+            result = 'away_points_updated';
             break;
         }
         return result;
       }
-    
+
       function getRandomValueBetween(from, to) {
         return Math.floor(Math.random() * (to - from + 1) + from);
       }
-      
-      prettyPrint();
     });
   </script>
-  <script src="http://js.pusher.com/1.11/pusher.min.js"></script>
-  <script src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
-  
-  <a href="https://github.com/leggetter/jquery.realtime"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+
+  <a href="https://github.com/leggetter/jquery.realtime"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 </body>
 </html>
